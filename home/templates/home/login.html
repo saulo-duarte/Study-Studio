@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Studio</title>
+    <link rel="stylesheet" href="{% static 'home/login.css' %}">
+    <link rel="icon" href="https://i.imgur.com/gMFwy26.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-left">
+            <h1>STUDY <span class="highlight-studio">STUDIO</span></h1>
+            <img src="https://i.imgur.com/JrzOXwC.jpeg" alt="Study Studio" class="login-logo">
+            <h2>CREATE YOUR OWN STUDY <span class="highlight-space">SPACE</span></h2>
+            <div class="stars">
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star bullet"></div>
+                <div class="star big" style="top: 90%; left: 8%;"></div>
+                <div class="star big" style="top: 90%; left: 8%;"></div>
+                <div class="star big" style="top: 40%; left: 15%;"></div>
+                <div class="star big" style="top: 40%; left: 15%;"></div>
+                <div class="star big" style="top: 14%; left: 2%;"></div>
+                <div class="star big" style="top: 14%; left: 2%;"></div>
+                <div class="star big" style="top: 65%; left: 55%;"></div>
+                <div class="star big" style="top: 65%; left: 55%;"></div>
+                <div class="star big" style="top: 2%; left: 62%;"></div>
+                <div class="star big" style="top: 2%; left: 62%;"></div>
+                <div class="star big" style="top: 45%; left: 45%;"></div>
+                <div class="star big" style="top: 45%; left: 45%;"></div>
+                <div class="star big" style="top: 65%; left: 2.5%;"></div>
+                <div class="star big" style="top: 65%; left: 2.5%;"></div>
+            </div>
+        </div>
+    </div>
+        <div class="login-right">
+            <div class="login-contact">
+                <img src="https://i.imgur.com/Y0T5h02.png" alt="contact icon" class="login-contact-icon">
+                <a href="#">Contact |</a>
+                <img src="https://i.imgur.com/6Mj6hbg.png" alt="help icon" class="login-contact-icon">
+                <a href="#">FAQ</a>
+            </div>
+            <h1>Welcome To Study Studio!</h1>
+            <p>Sign in to continue your educational journey or create an
+                <br>account to take the first step!
+            </p>
+            <img src="https://i.imgur.com/oM84TbU.jpeg" alt="login Image" class="login-image">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {% if error_message %}
+                    <p class="error">{{ error_message }}</p>
+                {% endif %}
+                <div class="input-group">
+                    <img src="https://i.imgur.com/DM7QyCV.png" alt="User Icon" class="input-icon">
+                    <input type="text" name="username" id="username" required>
+                </div>
+                <div class="input-group">
+                    <img src="https://i.imgur.com/uyVh51s.png" alt="Lock Icon" class="input-icon">
+                    <input type="password" name="password" id="password" required>
+                    <img src="https://i.imgur.com/06DO2Ga.png" alt="Toggle Password Visibility" class="toggle-password" id="toggle-password">
+                </div>
+                <button type="submit" class="login-button">SIGN IN</button>
+                <div class="login-options">
+                    <a href="#">Forgot Password?</a>
+                    <a href="{% url 'register' %}">Create Account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'home/login.js' %}"></script>
+</body>
+</html>

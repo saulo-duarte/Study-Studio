@@ -1,0 +1,335 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+}
+
+.login-container {
+    display: flex;
+    height: 100vh;
+    position: relative;
+}
+
+.login-left {
+    flex: 1;
+    position: relative; /* Necessário para o posicionamento das estrelas */
+    background: linear-gradient(to left, #000000, #000000, #000000,#000000, #151517);
+    overflow: hidden; /* Para garantir que as estrelas não saiam da área */
+}
+
+/* Classe para as estrelas */
+/* Estrela estilo bolinha */
+.star.bullet {
+    width: 6px;
+    height: 6px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    transition: background-color 0.3s, transform 0.3s;
+    animation: twinkle 3s infinite; /* Para um efeito de brilho */
+}
+
+.star.big {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 0, 0.615); /* Amarelo com transparência */
+    clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 
+        68% 57%, 79% 91%, 50% 70%, 
+        21% 91%, 32% 57%, 2% 35%, 
+        39% 35%
+    );
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Efeitos ao passar o mouse */
+.star.big:hover {
+    transform: scale(1.5);
+    /* Efeito de sombra mais suave com camadas de cores */
+    box-shadow: 
+        0 0 15px rgba(255, 255, 0, 0.6),    /* Luz interna */
+        0 0 25px rgba(255, 255, 0, 0.4),    /* Luz média */
+        0 0 40px rgba(255, 255, 0, 0.336);    /* Luz externa */
+    animation: rotate 15s linear infinite;
+}
+
+/* Animação de rotação */
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* Adicionando mais estrelas pequenas */
+.star:nth-child(1) { top: 10%; left: 10%; }
+.star:nth-child(2) { top: 20%; left: 30%; }
+.star:nth-child(3) { top: 25%; left: 60%; }
+.star:nth-child(4) { top: 50%; left: 10%; }
+.star:nth-child(5) { top: 70%; left: 40%; }
+.star:nth-child(6) { top: 85%; left: 70%; }
+.star:nth-child(7) { top: 57%; left: 17%; }
+.star:nth-child(8) { top: 64%; left: 10%; }
+.star:nth-child(9) { top: 22%; left: 20%; }
+.star:nth-child(10) { top: 35%; left: 45%; }
+.star:nth-child(11) { top: 55%; left: 55%; }
+.star:nth-child(12) { top: 75%; left: 65%; }
+.star:nth-child(13) { top: 2%; left: 5%; }
+.star:nth-child(14) { top: 90%; left: 25%; }
+.star:nth-child(15) { top: 45%; left: 70%; }
+.star:nth-child(16) { top: 60%; left: 25%; }
+.star:nth-child(17) { top: 35%; left: 15%; }
+.star:nth-child(18) { top: 90%; left: 50%; }
+.star:nth-child(19) { top: 25%; left: 85%; }
+.star:nth-child(20) { top: 95%; left: 75%; }
+.star:nth-child(21) { top: 25%; left: 50%; }
+.star:nth-child(22) { top: 65%; left: 30%; }
+.star:nth-child(23) { top: 40%; left: 65%; }
+.star:nth-child(24) { top: 10%; left: 75%; }
+.star:nth-child(25) { top: 5%; left: 55%; }
+.star:nth-child(26) { top: 75%; left: 20%; }
+.star:nth-child(27) { top: 50%; left: 90%; }
+.star:nth-child(28) { top: 85%; left: 55%; }
+.star:nth-child(29) { top: 30%; left: 40%; }
+.star:nth-child(30) { top: 20%; left: 70%; }
+.star:nth-child(31) { top: 45%; left: 3%; }
+.star:nth-child(32) { top: 98%; left: 2%; }
+.star:nth-child(33) { top: 90%; left: 5%; }
+.star:nth-child(34) { top: 80%; left: 90%; }
+.star:nth-child(35) { top: 60%; left: 80%; }
+.star:nth-child(36) { top: 95%; left: 40%; }
+.star:nth-child(37) { top: 85%; left: 10%; }
+.star:nth-child(38) { top: 75%; left: 85%; }
+.star:nth-child(39) { top: 40%; left: 5%; }
+.star:nth-child(40) { top: 20%; left: 15%; }
+.star:nth-child(41).big { top: 50%; left: 50%; }
+/* Hover effect para as estrelas */
+.star:hover {
+    background-color: yellow; /* Cor quando passar o mouse */
+    transform: scale(1.5); /* Aumenta o tamanho levemente */
+}
+
+.login-left h1 {
+    color: white;
+    font-size: 5em;
+    margin-top: 25px;
+    margin-right: 450px;
+    display: flex;
+    justify-content: center;
+}
+
+.highlight-studio {
+    color: cyan; /* Ou use 'cyan' se preferir */
+    margin-left: 10px;
+}
+
+.highlight-studio:hover {
+    text-shadow: 0 0 20px rgb(35, 255, 255);
+
+}
+
+.highlight-space {
+    color: yellow;
+}
+
+.highlight-space:hover {
+    text-shadow: 0 0 10px yellow;
+}
+
+.login-logo {
+    margin-top: 50px;
+    height: 250px;
+    width: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: 850px;
+}
+
+.login-left h2 {
+    color: white;
+    font-size: 2.5em;
+    margin-top: 150px;
+    margin-left: 180px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.login-right {
+    position: absolute; /* Para sobrepor ao .login-left */
+    top: 50%;
+    right: 0; /* Alinha à direita */
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    width: auto; /* Define a largura */
+    height: 100vh;
+    background-color: #fffffff6;
+    padding: 25px;
+    border-left: 3px solid rgba(255, 255, 0, 0.7); /* Borda amarela fina somente à esquerda */
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    box-shadow: 0 0 20px 5px rgba(255, 255, 0, 0.5); /* Aura amarela */
+    overflow: hidden;
+}
+form {
+    margin-top: 125px; 
+}
+
+.login-image {
+    object-fit: cover;
+    object-position: center;
+    width: 175px;
+    height: 175px;
+    
+    /*centraliza a imagem*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: -100px;
+}
+
+.login-right h1 {
+    font-size: 2.17em;
+    margin-top: 50px;
+}
+
+.login-right p {
+    font-size: 1em;
+    margin-top: 8px;
+    color: #545252;
+}
+
+.login-contact {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    margin-top: -15px;
+    margin-bottom: 20px;
+}
+
+.login-contact-icon {
+    width: 20px;
+    height: 20px; 
+    margin-right: -2px;
+    margin-left: 5px; 
+}
+
+.login-contact a {
+    color: #545252;
+    text-decoration: none;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+body {
+    background-color: white;
+}
+
+
+.input-group {
+    margin-bottom: 20px;
+    width: 100%;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 50px; /* Espaço para o ícone */
+    border: 2.2px solid #BBBBBB;
+    border-radius: 12px;
+    font-size: 1em;
+    color: #545252;
+    font-weight: 600;
+    transition: border-color 0.3s;
+    /*sombras*/
+
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1),
+                inset 0 1.2px 1.2px rgba(23, 23, 23, 0.3), /* Sombra interna no topo */
+                inset 0 -1.5px 1.5px rgba(42, 41, 41, 0.3); /* Sombra interna na parte inferior */
+}
+
+.input-group input:focus {
+    border-color: #888888; /* Cor do foco */
+    outline: none;
+}
+
+.input-icon {
+    position: absolute;
+    left: 10px; /* Distância da borda esquerda */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajusta para centralização correta */
+    width: 35px; /* Tamanho do ícone */
+    height: 35px; /* Tamanho do ícone */
+    pointer-events: none; /* Para que o clique não interfira com o input */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px; /* Distância da borda direita */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajusta para centralização correta */
+    cursor: pointer; /* Altera o cursor para indicar que é clicável */
+    width: 35px; /* Tamanho do ícone */
+}
+
+
+.login-button {
+    background: linear-gradient(to bottom, #cc9900,#FFCC00, #FFCC00); /* Gradiente que inicia mais escuro */
+    color: white;
+    border: none;
+    padding: 15px 200px;
+    font-size: 1.05em;
+    font-weight: bold;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+
+    /* Sombra externa */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1),
+                inset 0 5px 8px rgba(0, 0, 0, 0.3), /* Sombra interna no topo */
+                inset 0 -5px 8px rgba(255, 255, 255, 0.3); /* Sombra interna na parte inferior */
+    
+    /* Sombra no texto */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */
+}
+
+/* Hover mais escuro */
+.login-button:hover {
+    background: linear-gradient(to bottom, #b37404,#FFCC00, #FFCC00); /* Um tom mais escuro */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
+                inset 0 6px 10px rgba(0, 0, 0, 0.4), /* Sombra interna mais intensa no hover */
+                inset 0 -6px 10px rgba(255, 255, 255, 0.4); /* Luz interna mais destacada */
+}
+
+/* Animação de click */
+.login-button:active {
+    transform: scale(0.98); /* Leve redução no tamanho para simular pressão */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1),
+                inset 0 4px 6px rgba(0, 0, 0, 0.4), /* Sombra interna mais intensa ao clicar */
+                inset 0 -4px 6px rgba(255, 255, 255, 0.4); /* Luz mais intensa ao clicar */
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.login-options a {
+    color: #03c3bf;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: underline;
+}

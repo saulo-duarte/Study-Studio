@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}  <!-- Adicione isso no topo -->
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'home/home.css' %}">
+</head>
+<div class="home-container">
+    <h1> Welcome to my Study App</h1>
+    <div class="metrics">
+        <div class="cards">Daily Sequence: 0</div>
+        <div class="cards">Current Weekly Hours: 0</div>
+        <div class="cards">Meta Hours: 0</div>
+    </div>
+    <h3>Last Contents Studied:</h3>
+    <div class="last-contents">
+        <p>No Contents studied yet!</p>
+    </div>
+</div>
+{% endblock %}
