@@ -1,0 +1,7 @@
+asgiref @ file:///work/perseverance-python-buildout/croot/asgiref_1728402006833/work
+Django==5.1.2
+pytz @ file:///work/perseverance-python-buildout/croot/pytz_1728386814080/work
+setuptools==75.1.0
+sqlparse @ file:///work/perseverance-python-buildout/croot/sqlparse_1728412073878/work
+typing_extensions @ file:///work/perseverance-python-buildout/croot/typing_extensions_1728386414866/work
+wheel==0.44.0

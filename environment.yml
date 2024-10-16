@@ -1,0 +1,4 @@
+name: ss
+channels:
+  - defaults
+prefix: /home/saulo/anaconda3/envs/ss
