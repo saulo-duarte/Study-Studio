@@ -10,24 +10,38 @@
 </head>
 <body>
     <header>
-        <h1>Study Studio</h1>
     </header>
-    <div class="container">
-        <aside class="sidebar">
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'topics' %}">Topics</a></li>
-                <li><a href="{% url 'tasks' %}">Tasks</a></li>
-                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            </ul>
-        </aside>
-        <main>
-            {% block content %}
-            {% endblock %}
-        </main>
-    </div>
-    <footer>
-        <p>&copy; 2024 Study Studio</p>
-    </footer>
+    <aside class="sidebar">
+        <ul>
+            <h2 class="study_studio">Study Studio</h2>
+            <div class="divider"></div>
+            <li class="menu-item">
+                <a href="{% url 'home' %}">
+                    <img src="https://cdn3.iconfinder.com/data/icons/flaticons-1/24/flaticon_house-512.png" alt="Home" class="home-icon">
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'topics' %}">
+                    <img src="https://i.imgur.com/v2RBH0P.png" alt="Topics" class="topics-icon">
+                    Topics
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'tasks' %}">
+                    <img src="https://cdn-icons-png.flaticon.com/512/488/488004.png" alt = "Tasks" class="tasks-icon">
+                    Tasks
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'dashboard' %}">
+                    <img src="https://i.imgur.com/zgBLDa1.png" alt="Dashboard" class="dashboard-icon">
+                    Dashboard
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <main>
+    </main>
 </body>
 </html>

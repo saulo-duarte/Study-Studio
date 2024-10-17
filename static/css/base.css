@@ -1,10 +1,12 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
 }
 
 .container {
@@ -14,16 +16,33 @@ body {
 
 .sidebar {
     width: 200px;
-    background-color: #040847;
+    background-color: #ffffff;
+    border: 1.5px solid #cad101;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    /*Adicionando uma aura ao sidebar*/
+    box-shadow: 0 0 5px rgba(154, 159, 2, 0.3);
     padding: 15px;
     min-width: 200px;
-    position: fixed;  /* Sidebar sempre fixa na tela */
-    top: 10%;
-    bottom: 10%;
-    height: 80%;
+    position: fixed;
+    top: 5%;
+    bottom: 5%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.divider {
+    border-bottom: 1px solid #636363d4;
+    margin: 15px -5px;
+    margin-bottom: 20px;
+}
+
+.sidebar h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
 .sidebar ul {
@@ -35,9 +54,41 @@ body {
     margin: 10px 0;
 }
 
+.menu-item {
+    display: flex;
+    align-items: center;  /* Alinha a imagem e o texto verticalmente */
+}
+
+.home-icon {
+    width: 24px;  /* Ajuste o tamanho do ícone para o desejado */
+    height: 24px; /* Mantém a proporção */
+    margin-right: 8px; /* Espaço entre a imagem e o texto */
+    margin-bottom: 8px;
+}
+
+.topics-icon {
+    width: 24px;  /* Ajuste o tamanho do ícone para o desejado */
+    height: 24px; /* Mantém a proporção */
+    margin-right: 8px; /* Espaço entre a imagem e o texto */
+}
+
+.tasks-icon {
+    width: 24px;  /* Ajuste o tamanho do ícone para o desejado */
+    height: 24px; /* Mantém a proporção */
+    margin-right: 8px; /* Espaço entre a imagem e o texto */
+}
+
+.dashboard-icon {
+    width: 24px;  /* Ajuste o tamanho do ícone para o desejado */
+    height: 24px; /* Mantém a proporção */
+    margin-right: 8px; /* Espaço entre a imagem e o texto */
+}
+
 .sidebar ul li a {
-    color: white;
+    color: black;  /* Mudando a cor do texto para preto para melhor contraste */
     text-decoration: none;
+    display: flex;  /* Permite que a imagem e o texto fiquem lado a lado */
+    align-items: center;  /* Alinha verticalmente no centro */
 }
 
 .sidebar ul li a:hover {
