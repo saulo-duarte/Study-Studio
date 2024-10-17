@@ -7,6 +7,7 @@
 body, html {
     height: 100%;
     font-family: 'Inter', sans-serif;
+    background-color: rgb(255, 255, 255);
 }
 
 .container {
@@ -16,13 +17,12 @@ body, html {
 
 .sidebar {
     width: 200px;
-    background-color: #ffffff;
-    border: 1.5px solid #cad101;
+    background: radial-gradient(circle, #333, #1d1d1d, #000);
+    border: #f0dd30;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    /*Adicionando uma aura ao sidebar*/
-    box-shadow: 0 0 5px rgba(154, 159, 2, 0.3);
-    padding: 15px;
+    border-left: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     min-width: 200px;
     position: fixed;
     top: 5%;
@@ -30,19 +30,20 @@ body, html {
     height: 90%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    font-weight: 600;
 }
 
 .divider {
-    border-bottom: 1px solid #636363d4;
-    margin: 15px -5px;
-    margin-bottom: 20px;
+    border-bottom: 3px solid #686666e7;
+    margin-bottom: 8px;
 }
 
 .sidebar h2 {
-    color: #333;
+    color: #ffffff;
     font-size: 1.5rem;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 2px;
+    text-align: center;
 }
 
 .sidebar ul {
@@ -50,42 +51,24 @@ body, html {
     padding: 0;
 }
 
-.sidebar ul li {
-    margin: 10px 0;
-}
-
 .menu-item {
-    display: flex;
-    align-items: center;  /* Alinha a imagem e o texto verticalmente */
+    margin: 10px 0; /* Espaço entre os itens do menu */
 }
 
-.home-icon {
-    width: 24px;  /* Ajuste o tamanho do ícone para o desejado */
-    height: 24px; /* Mantém a proporção */
-    margin-right: 8px; /* Espaço entre a imagem e o texto */
-    margin-bottom: 8px;
+.icon-container {
+    display: flex; /* Usando flexbox para alinhar ícones e texto */
+    align-items: center; /* Alinhamento vertical no centro */
+    padding: 8px; /* Espaçamento interno */
 }
 
-.topics-icon {
-    width: 24px;  /* Ajuste o tamanho do ícone para o desejado */
-    height: 24px; /* Mantém a proporção */
-    margin-right: 8px; /* Espaço entre a imagem e o texto */
-}
-
-.tasks-icon {
-    width: 24px;  /* Ajuste o tamanho do ícone para o desejado */
-    height: 24px; /* Mantém a proporção */
-    margin-right: 8px; /* Espaço entre a imagem e o texto */
-}
-
-.dashboard-icon {
-    width: 24px;  /* Ajuste o tamanho do ícone para o desejado */
-    height: 24px; /* Mantém a proporção */
-    margin-right: 8px; /* Espaço entre a imagem e o texto */
+.icon-container img {
+    width: 24px;  /* Tamanho do ícone */
+    height: 24px; /* Tamanho do ícone */
+    margin-right: 8px; /* Espaço entre o ícone e o texto */
 }
 
 .sidebar ul li a {
-    color: black;  /* Mudando a cor do texto para preto para melhor contraste */
+    color: rgb(255, 255, 255);  /* Mudando a cor do texto para preto para melhor contraste */
     text-decoration: none;
     display: flex;  /* Permite que a imagem e o texto fiquem lado a lado */
     align-items: center;  /* Alinha verticalmente no centro */

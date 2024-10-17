@@ -1,57 +1,22 @@
-/* Estilo geral da página */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4; /* Cor de fundo suave */
-}
-
-/* Contêiner principal */
 .home-container {
-    max-width: 800px; /* Limite a largura do contêiner */
-    margin: 0 auto; /* Centraliza o contêiner */
-    padding: 20px;
-    background-color: #fff; /* Fundo branco para o contêiner */
-    border-radius: 10px; /* Bordas arredondadas */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flex; /* Alinha os containers lado a lado */
+    background-color: white; /* Fundo branco para o container geral */
+    height: 100vh; /* Para ocupar toda a altura da tela, ajuste conforme necessário */
 }
 
-/* Estilo para o título principal */
-h1 {
-    text-align: center; /* Centraliza o título */
-    color: #333; /* Cor do texto */
+.left-container {
+    flex: 0 0 60%; /* 60% de largura */
+    padding: 20px; /* Espaçamento interno opcional */
+    border-right: 1px solid #ccc; /* Divisória opcional entre os containers */
 }
 
-/* Estilo para a seção de métricas */
+.right-container {
+    flex: 0 0 40%; /* 40% de largura */
+    padding: 20px; /* Espaçamento interno opcional */
+}
+
 .metrics {
-    display: flex; /* Layout flexível para as métricas */
-    justify-content: space-between; /* Espaço entre os cartões */
-    margin: 20px 0; /* Margem vertical para separar da seção acima e abaixo */
-}
-
-/* Estilo para os cartões */
-.cards {
-    background-color: #e7f3fe; /* Fundo azul claro */
-    padding: 15px;
-    flex: 1; /* Faz com que os cartões ocupem espaço igual */
-    margin: 0 10px; /* Margem horizontal entre os cartões */
-    border-radius: 5px; /* Bordas arredondadas para os cartões */
-    text-align: center; /* Centraliza o texto dentro dos cartões */
-    font-size: 18px; /* Tamanho da fonte */
-    color: #333; /* Cor do texto */
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra suave nos cartões */
-}
-
-/* Estilo para a seção de conteúdos estudados */
-.last-contents {
-    margin-top: 20px; /* Espaço acima da seção */
-    padding: 10px;
-    border: 1px solid #ccc; /* Borda leve ao redor da seção */
-    border-radius: 5px; /* Bordas arredondadas */
-    background-color: #f9f9f9; /* Fundo cinza claro */
-}
-
-/* Estilo para o título da seção de conteúdos estudados */
-h3 {
-    color: #333; /* Cor do texto */
+    justify-content: space-between; /* Distribui os itens igualmente */
+    margin-bottom: 20px;
+    margin-top: 20px; /* Espaçamento inferior */
 }
