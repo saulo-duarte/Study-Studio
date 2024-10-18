@@ -8,6 +8,7 @@ body, html {
     height: 100%;
     font-family: 'Inter', sans-serif;
     background-color: rgb(255, 255, 255);
+    color: white;
 }
 
 .container {
@@ -17,12 +18,12 @@ body, html {
 
 .sidebar {
     width: 200px;
-    background: radial-gradient(circle, #1b1b1b, #1d1d1d, #000);
+    background: #2a2a2e;
     border: #f0dd30;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-left: none;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(220, 236, 2, 0.534);
     min-width: 200px;
     position: fixed;
     top: 5%;
@@ -53,8 +54,21 @@ body, html {
 
 .menu-item {
     margin: 10px 0; /* Espaço entre os itens do menu */
+    transition: background-color 0.3s ease; /* Transição suave */
+    border-radius: 5px; /* Bordas arredondadas */
 }
 
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.199); /* Fundo sutil ao passar o mouse */
+}
+
+.icon-container:hover {
+    color: #00ffff; /* Mudar a cor do texto e ícone ao passar o mouse */
+}
+
+.sidebar ul li a:hover .icon-container img {
+    filter: brightness(1.2); /* Aumentar o brilho do ícone ao passar o mouse */
+}
 .icon-container {
     display: flex; /* Usando flexbox para alinhar ícones e texto */
     align-items: center; /* Alinhamento vertical no centro */
@@ -95,4 +109,12 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
+}
+
+.icon-container .topics-icon{
+    width: 32px; 
+    height: 32px;
+    margin-right: 4px;
+    margin-left: -4px;
+
 }
