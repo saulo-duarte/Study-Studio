@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Studio</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'svg/' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet">
 </head>
@@ -20,7 +21,7 @@
             <li class="menu-item">
                 <a href="{% url 'home' %}">
                     <div class="icon-container">
-                        <img src="https://cdn3.iconfinder.com/data/icons/flaticons-1/24/flaticon_house-512.png" alt="Home" class="home-icon">
+                        <img src="{% static 'svg/home.svg' %}" alt="Home" class="home-icon">
                         Home
                     </div>
                 </a>
@@ -28,7 +29,7 @@
             <li class="menu-item">
                 <a href="{% url 'topics' %}">
                     <div class="icon-container">
-                        <img src="https://i.imgur.com/v2RBH0P.png" alt="Topics" class="topics-icon">
+                        <img src="{% static 'svg/topics.svg' %}" alt="Topics" class="topics-icon">
                         Topics
                     </div>
                 </a>
@@ -36,7 +37,7 @@
             <li class="menu-item">
                 <a href="{% url 'tasks' %}">
                     <div class="icon-container">
-                        <img src="https://cdn-icons-png.flaticon.com/512/488/488004.png" alt="Tasks" class="tasks-icon">
+                        <img src="{% static 'svg/calendar.svg' %}" alt="tasks" class="tasks-icon">
                         Tasks
                     </div>
                 </a>
@@ -44,10 +45,18 @@
             <li class="menu-item">
                 <a href="{% url 'dashboard' %}">
                     <div class="icon-container">
-                        <img src="https://i.imgur.com/zgBLDa1.png" alt="Dashboard" class="dashboard-icon">
+                        <img src="{% static 'svg/dashboard.svg' %}" alt="Dashboard" class="dashboard-icon">
                         Dashboard
                     </div>
                 </a>
+            </li>
+            <li class="menu-item">
+                <a href="{% url 'dashboard' %}">
+                    <div class="icon-container">
+                        <img src="{% static 'svg/notes.svg' %}" alt="Notes" class="notes-icon">
+                        Notes
+                     </div>
+                </a> 
             </li>
         </ul>
     </aside>

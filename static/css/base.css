@@ -17,7 +17,7 @@ body, html {
 
 .sidebar {
     width: 200px;
-    background: radial-gradient(circle, #333, #1d1d1d, #000);
+    background: radial-gradient(circle, #1b1b1b, #1d1d1d, #000);
     border: #f0dd30;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -65,6 +65,12 @@ body, html {
     width: 24px;  /* Tamanho do ícone */
     height: 24px; /* Tamanho do ícone */
     margin-right: 8px; /* Espaço entre o ícone e o texto */
+}
+
+.icon-container .topics-icon {
+    width: 28px;  /* Tamanho do ícone */
+    height: 28px; /* Tamanho do ícone */
+    margin-right: 8px; 
 }
 
 .sidebar ul li a {
