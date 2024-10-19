@@ -1,10 +1,36 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background-color: rgb(255, 255, 255);
+    color: white;
+}
+
+.metheor {
+    position: absolute;
+    z-index: -1; /* Coloca o meteoro atrás do conteúdo */
+    width: 100px; /* Tamanho do meteoro */
+    height: auto;
+}
+
+.metheor-1 {
+    top: 90%;  /* Ajuste a posição para onde quer que ele apareça */
+    left: 10%;
+}
+
+.metheor-2 {
+    top: 50%;
+    right: 15%;
+}
+
+.metheor-3 {
+    bottom: 10%;
+    left: 80%;
 }
 
 .container {
@@ -14,16 +40,32 @@ body {
 
 .sidebar {
     width: 200px;
-    background-color: #040847;
-    padding: 15px;
+    background: #2a2a2e;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-left: none;
     min-width: 200px;
-    position: fixed;  /* Sidebar sempre fixa na tela */
-    top: 10%;
-    bottom: 10%;
-    height: 80%;
+    position: fixed;
+    top: 5%;
+    bottom: 5%;
+    height: 90%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    font-weight: 600;
+    z-index: 8;
+}
+
+.divider {
+    border-bottom: 3px solid #686666e7;
+    margin-bottom: 8px;
+}
+
+.sidebar h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    padding: 10px;
+    margin-bottom: 2px;
+    text-align: center;
 }
 
 .sidebar ul {
@@ -31,13 +73,46 @@ body {
     padding: 0;
 }
 
-.sidebar ul li {
-    margin: 10px 0;
+.menu-item {
+    margin: 10px 0; /* Espaço entre os itens do menu */
+    transition: background-color 0.3s ease; /* Transição suave */
+    border-radius: 5px; /* Bordas arredondadas */
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.199); /* Fundo sutil ao passar o mouse */
+}
+
+.icon-container:hover {
+    color: #00ffff; /* Mudar a cor do texto e ícone ao passar o mouse */
+}
+
+.sidebar ul li a:hover .icon-container img {
+    filter: brightness(1.2); /* Aumentar o brilho do ícone ao passar o mouse */
+}
+.icon-container {
+    display: flex; /* Usando flexbox para alinhar ícones e texto */
+    align-items: center; /* Alinhamento vertical no centro */
+    padding: 8px; /* Espaçamento interno */
+}
+
+.icon-container img {
+    width: 24px;  /* Tamanho do ícone */
+    height: 24px; /* Tamanho do ícone */
+    margin-right: 8px; /* Espaço entre o ícone e o texto */
+}
+
+.icon-container .topics-icon {
+    width: 28px;  /* Tamanho do ícone */
+    height: 28px; /* Tamanho do ícone */
+    margin-right: 8px; 
 }
 
 .sidebar ul li a {
-    color: white;
+    color: rgb(255, 255, 255);  /* Mudando a cor do texto para preto para melhor contraste */
     text-decoration: none;
+    display: flex;  /* Permite que a imagem e o texto fiquem lado a lado */
+    align-items: center;  /* Alinha verticalmente no centro */
 }
 
 .sidebar ul li a:hover {
@@ -55,4 +130,12 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
+}
+
+.icon-container .topics-icon{
+    width: 32px; 
+    height: 32px;
+    margin-right: 4px;
+    margin-left: -4px;
+
 }

@@ -50,8 +50,9 @@ AUTHENTICATION_BACKENDS = [
 
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
