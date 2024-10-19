@@ -11,6 +11,28 @@ body, html {
     color: white;
 }
 
+.metheor {
+    position: absolute;
+    z-index: -1; /* Coloca o meteoro atrás do conteúdo */
+    width: 100px; /* Tamanho do meteoro */
+    height: auto;
+}
+
+.metheor-1 {
+    top: 90%;  /* Ajuste a posição para onde quer que ele apareça */
+    left: 10%;
+}
+
+.metheor-2 {
+    top: 50%;
+    right: 15%;
+}
+
+.metheor-3 {
+    bottom: 10%;
+    left: 80%;
+}
+
 .container {
     display: flex;
     flex: 1;
@@ -19,11 +41,9 @@ body, html {
 .sidebar {
     width: 200px;
     background: #2a2a2e;
-    border: #f0dd30;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-left: none;
-    box-shadow: 0 0 15px rgba(220, 236, 2, 0.534);
     min-width: 200px;
     position: fixed;
     top: 5%;
@@ -32,6 +52,7 @@ body, html {
     display: flex;
     flex-direction: column;
     font-weight: 600;
+    z-index: 8;
 }
 
 .divider {

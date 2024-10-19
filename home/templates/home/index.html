@@ -5,18 +5,68 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
+<div class="background-container">
+    <img src="{% static 'svg/home/metheor.svg' %}" alt="Meteoroid 1" class="metheor metheor-1">
+    <img src="{% static 'svg/home/metheor.svg' %}" alt="Meteoroid 2" class="metheor metheor-2">
+    <img src="{% static 'svg/home/metheor.svg' %}" alt="Meteoroid 3" class="metheor metheor-3">
+    <img src="{% static 'svg/home/meteor.svg' %}" alt="Meteor" class="meteor">
+</div>
 <div class="home-container">
     <div class="left-container">
-        <h1>Welcome {{ user.username }} to your Study Space</h1>
-        <div class="metrics">
-            <div class="cards">Daily Sequence: 0</div>
-            <div class="cards">Current Weekly Hours: 0</div>
-            <div class="cards">Meta Hours: 0</div>
+        <div class="header-container">
+            <h1>Welcome {{ user.username }}, to your Study Space!</h1>
+            <img src="{% static 'svg/home/rocket.svg' %}" alt="Study Space" class="rocket-icon">
         </div>
-        <h3>Last Contents Studied:</h3>
+        <div class="metrics">
+            <div class="card daily-sequence">
+                <h3>Daily Sequence</h3>
+                <p>10</p>
+                <div class="line line-top-left"></div>
+                <div class="line line-top-right"></div>
+                <div class="line line-left"></div>
+                <div class="line line-right"></div>
+                <div class="line line-bottom-left"></div>
+                <div class="line line-bottom-right"></div>
+            </div>
+            <div class="card current-hours">
+                <h3>Current Hours</h3>
+                <p>40</p>
+                <div class="line line-top-left"></div>
+                <div class="line line-top-right"></div>
+                <div class="line line-left"></div>
+                <div class="line line-right"></div>
+                <div class="line line-bottom-left"></div>
+                <div class="line line-bottom-right"></div>
+            </div>
+            <div class="card meta-hours">
+                <h3>Meta Hours</h3>
+                <p>20</p>
+                <div class="line line-top-left"></div>
+                <div class="line line-top-right"></div>
+                <div class="line line-left"></div>
+                <div class="line line-right"></div>
+                <div class="line line-bottom-left"></div>
+                <div class="line line-bottom-right"></div>
+            </div>
+        </div>
+        <div class="studied-contents-title">
+            <h3>Studied Contents</h3>
+        </div>
+        <div class="studied-contents-container">
+            <img src="https://i.imgur.com/hAmFRjj.png" alt="astronaut" class="astronaut-pic">
+            <p>No contents studied yet!</p>
+        </div>
     </div>
     <div class="right-container">
-        <p>No Contents studied yet!</p>
+        <div class="study-overview">
+            <h2>Study Overview</h2>
+        </div>
+        <div class="todays-activities">
+            <h2>Today's Activities</h2>
+        </div>
+        <div class="topics-suggestions">
+            <h2>Topics Suggestions</h2>
     </div>
 </div>
+<script src="{% static 'js/home.js' %}"></script>
 {% endblock %}
