@@ -8,3 +8,23 @@ setInterval(() => {
         meteor.style.opacity = '0';  
     });
 }, 25000)
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const cards = document.querySelectorAll('.tasks-cards div');
+
+    cards.forEach(function(card) {
+
+        const title = card.querySelector('h2').textContent;
+
+        if (title == 'Review') {
+            card.style.border = '4px solid purple';
+        } else if (title == 'Study') {
+            card.style.border = '4px solid orange';
+        }
+        else {
+            card.style.border = '4px solid green';
+        }
+    });
+
+});

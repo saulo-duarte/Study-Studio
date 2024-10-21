@@ -3,10 +3,10 @@ body {
     background-color: #1c1c1e;
     overflow: hidden;
     background-image: url('https://i.imgur.com/NpHDKdL.png');
-    background-size: cover;
+    background-size: auto;
     background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
+    overflow-y: auto;
+    background-repeat: repeat;
 }
 
 .background-container {
@@ -320,8 +320,7 @@ body {
     border: solid 3.5px #00ffff;
     padding: 20px;
     margin-top: 20px;
-    height: 50vh; 
-    max-height: 50vh;
+    max-height: 85vh;
     overflow-y: auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     display: flex;
@@ -343,11 +342,12 @@ body {
 
 .activities-buttons {
     display: flex;
-    justify-content: space-between; /* Distribui os botões e o campo de texto igualmente */
-    align-items: center; /* Alinha verticalmente ao centro */
+    justify-content: space-between; 
+    align-items: center; 
     width: 100%;
     margin-top: 5%;
     z-index: 0;
+    gap: 5px;
 }
 
 .activity-button {
@@ -360,7 +360,7 @@ body {
     color: #fff;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    flex: 0 0 15%; /* Cada botão ocupará 15% da largura do container */
+    flex: 0 0 15%;
 
     box-shadow: 
         inset 0 12px 10px rgba(0, 0, 0, 0.4),
@@ -382,13 +382,22 @@ body {
 
 .activities-input input {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: solid 2px rgba(255, 255, 255, 0.7);
-    border-radius: 8px;
+    padding: 5px;
+    max-height: 60px;
+    height: 44px;
+    font-size: 20px;
+    font-weight: bold;
+    border: solid 3px rgb(237, 241, 0);
+    border-radius: 15px;
     background-color: rgba(28, 28, 30, 0.243);
     color: #fff;
     text-align: center;
+    box-shadow: 
+        inset 0 12px 10px rgba(0, 0, 0, 0.4),
+        inset 0 -12px 10px rgba(0, 0, 0, 0.1), 
+        0 0 8px rgba(237, 241, 0, 0.6),       
+        0 0 12px rgba(237, 241, 0, 0.5),      
+        0 0 16px rgba(237, 241, 0, 0.4);  
 }
 
 
@@ -400,6 +409,22 @@ body {
     border-radius: 8px;
     background-color: #f9f9f9;
     text-align: center;
+}
+
+.tasks-cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card1, .card2, .card3 {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    /* espaço entre os textos */
+    line-height: 1.5;   
 }
 
 .studied-contents {
