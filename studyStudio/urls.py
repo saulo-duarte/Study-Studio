@@ -30,6 +30,7 @@ urlpatterns = [
     path('topics/', include('topics.urls')),
     path('tasks/', include('tasks.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('studySpace/', include('studySpace.urls')),
 ]
 
 
