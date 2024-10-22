@@ -19,11 +19,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (title == 'Review') {
             card.style.border = '4px solid purple';
-        } else if (title == 'Study') {
+            card.querySelector('h2').style.color = 'purple';
+        
+        } 
+        
+        else if (title == 'Study') {
             card.style.border = '4px solid orange';
+            card.querySelector('h2').style.color = 'orange';
         }
+
         else {
             card.style.border = '4px solid green';
+            card.querySelector('h2').style.color = 'green';
         }
     });
 

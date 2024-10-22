@@ -125,7 +125,7 @@ body {
 }
 
 .left-container {
-    width: 60%;
+    width: 65%;
     border-right: 2px solid #5e5e5e;
     padding-right: 20px;
     z-index: 2;
@@ -163,10 +163,9 @@ body {
 }
 
 .right-container {
-    width: 40%;
-    background-color: #3f3e3e85;
+    width: 30%;
     border-radius: 12px;
-    padding: 15px;
+    padding: 5px;
     color: #fff;
     margin-left: 20px;
     height: 90vh;
@@ -174,10 +173,11 @@ body {
 
 .right-container h2 {
     font-size: 26px;
+    font-family: 'audiowide', sans-serif;
     margin-bottom: 20px;
     text-align: center;
     justify-content: center;
-    color: #edf100cd;
+    color: #ffffffef;
 }
 
 .study-overview {
@@ -383,8 +383,8 @@ body {
 .activities-input input {
     width: 100%;
     padding: 5px;
-    max-height: 60px;
-    height: 44px;
+    max-height: 50px;
+    height: 35px;
     font-size: 20px;
     font-weight: bold;
     border: solid 3px rgb(237, 241, 0);
