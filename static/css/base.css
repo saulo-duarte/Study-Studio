@@ -11,6 +11,20 @@ body, html {
     color: white;
 }
 
+.sidebar h2 {
+    font-family: "Audiowide", "Inter", sans-serif;
+}
+
+.sidebar p {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 2px;
+    color: #a7a7a7;
+    margin-bottom: 10px;
+
+}
+
 .metheor {
     position: absolute;
     z-index: -1; /* Coloca o meteoro atrás do conteúdo */
@@ -108,6 +122,14 @@ body, html {
     margin-right: 8px; 
 }
 
+.icon-container .studySpace-icon{
+    width: 32px;
+    height: 32px;
+    margin-right: 4px;
+    margin-left: -1px;
+    margin-bottom: -10px;
+}
+
 .sidebar ul li a {
     color: rgb(255, 255, 255);  /* Mudando a cor do texto para preto para melhor contraste */
     text-decoration: none;
@@ -117,6 +139,11 @@ body, html {
 
 .sidebar ul li a:hover {
     text-decoration: underline;
+}
+
+.sidebar .menu-subtitle {
+    margin-left: 2px;
+    margin-top: 5px;
 }
 
 main {

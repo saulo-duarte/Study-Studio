@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -17,11 +18,29 @@
         <h2 class="study_studio">Study Studio</h2>
         <div class="divider"></div>
         <ul class="menu-list">
+            <p class="menu-subtitle">Study Overview</p>
             <li class="menu-item">
                 <a href="{% url 'home' %}">
                     <div class="icon-container">
                         <img src="{% static 'svg/home.svg' %}" alt="Home" class="home-icon">
                         Home
+                    </div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{% url 'dashboard' %}">
+                    <div class="icon-container">
+                        <img src="{% static 'svg/dashboard.svg' %}" alt="Dashboard" class="dashboard-icon">
+                        Dashboard
+                    </div>
+                </a>
+            </li>
+            <p class="menu-subtitle">Study Space</p>
+            <li class="menu-item">
+                <a href="{% url 'studySpace' %}">
+                    <div class="icon-container">
+                        <img src="{% static 'svg/studySpace.svg' %}" alt="Study Space" class="studySpace-icon">
+                        Work Station
                     </div>
                 </a>
             </li>
@@ -44,19 +63,12 @@
             <li class="menu-item">
                 <a href="{% url 'dashboard' %}">
                     <div class="icon-container">
-                        <img src="{% static 'svg/dashboard.svg' %}" alt="Dashboard" class="dashboard-icon">
-                        Dashboard
-                    </div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="{% url 'dashboard' %}">
-                    <div class="icon-container">
                         <img src="{% static 'svg/notes.svg' %}" alt="Notes" class="notes-icon">
                         Notes
                      </div>
                 </a> 
             </li>
+            <p class="menu-subtitle">Account</p>
         </ul>
     </aside>
     <main>
