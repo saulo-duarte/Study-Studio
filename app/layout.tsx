@@ -21,9 +21,9 @@ export default function RootLayout(
             <SidebarProvider>
               <AppSidebar />
               <SidebarTrigger />
+              {children}
             </SidebarProvider>
           )}
-          {children}
         </main>
       </body>
     </html>
