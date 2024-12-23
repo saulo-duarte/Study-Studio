@@ -1,7 +1,6 @@
 use serde::{Serialize, Deserialize};
 
-// Enum for the user's field of interest
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize)]
 pub enum FieldOfInteresting {
     Frontend,
     Backend,
@@ -11,7 +10,24 @@ pub enum FieldOfInteresting {
     DevOps,
 }
 
-// Enum for available days
+impl<'de> Deserialize<'de> for FieldOfInteresting {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let s: String = Deserialize::deserialize(deserializer)?;
+        match s.to_lowercase().as_str() {
+            "frontend" => Ok(FieldOfInteresting::Frontend),
+            "backend" => Ok(FieldOfInteresting::Backend),
+            "mobile" => Ok(FieldOfInteresting::Mobile),
+            "data-science" => Ok(FieldOfInteresting::DataScience),
+            "data-engineering" => Ok(FieldOfInteresting::DataEngineering),
+            "devops" => Ok(FieldOfInteresting::DevOps),
+            _ => Err(serde::de::Error::unknown_variant(&s, &["frontend", "backend", "mobile", "data-science", "data-engineering", "devops"])),
+        }
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 pub enum AvailableDay {
     Monday,
@@ -31,9 +47,21 @@ pub struct User {
     pub email: Option<String>,
     pub created_at: String,
     pub last_login: Option<String>,
-    pub preferences: Option<String>,
-    pub interesting_fields: Vec<FieldOfInteresting>,
-    pub available_days: Vec<AvailableDay>,
+    pub status: String,
+}
+
+// Struct for User-AvailableDay relation
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UserAvailableDay {
+    pub user_id: i32,
+    pub available_day: AvailableDay,
+}
+
+// Struct for User-FieldOfInterest relation
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UserInterestingField {
+    pub user_id: i32,
+    pub field: FieldOfInteresting,
 }
 
 // Struct for Document entity

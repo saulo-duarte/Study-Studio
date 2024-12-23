@@ -1,4 +1,3 @@
-/// SQL statement to create the `user` table.
 pub const CREATE_USER_TABLE: &str = "
     CREATE TABLE IF NOT EXISTS user (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -6,14 +5,10 @@ pub const CREATE_USER_TABLE: &str = "
         email TEXT UNIQUE NOT NULL,
         created_at TEXT NOT NULL,
         last_login TEXT NOT NULL,
-        interesting_fields TEXT,
-        available_days TEXT,
-        status TEXT NOT NULL DEFAULT 'active' 
+        status TEXT NOT NULL DEFAULT 'active'
     );
 ";
 
-
-/// SQL statement to create the `document` table.
 pub const CREATE_DOCUMENT_TABLE: &str = r#"
 CREATE TABLE IF NOT EXISTS document (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,7 +27,6 @@ CREATE TABLE IF NOT EXISTS document (
 );
 "#;
 
-/// SQL statement to create the `task` table.
 pub const CREATE_TASK_TABLE: &str = r#"
 CREATE TABLE IF NOT EXISTS task (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -48,7 +42,6 @@ CREATE TABLE IF NOT EXISTS task (
 );
 "#;
 
-/// SQL statement to create the `tag` table.
 pub const CREATE_TAG_TABLE: &str = r#"
 CREATE TABLE IF NOT EXISTS tag (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,5 +50,23 @@ CREATE TABLE IF NOT EXISTS tag (
     description TEXT,
     created_at TEXT NOT NULL,
     icon TEXT
+);
+"#;
+
+pub const CREATE_USER_AVAILABLE_DAYS_TABLE: &str = r#"
+CREATE TABLE IF NOT EXISTS user_available_days (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    available_day TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
+"#;
+
+pub const CREATE_USER_INTERESTING_FIELDS_TABLE: &str = r#"
+CREATE TABLE IF NOT EXISTS user_interesting_fields (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    field TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id)
 );
 "#;
