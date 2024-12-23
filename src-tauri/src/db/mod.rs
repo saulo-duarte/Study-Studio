@@ -1,5 +1,5 @@
-use rusqlite::{Connection, Result};
 use crate::utils::path::get_database_path;
+use rusqlite::{Connection, Result};
 
 pub mod schemas {
     pub mod create_tables;
@@ -13,11 +13,11 @@ pub use schemas::user::create_user;
 #[tauri::command]
 pub fn initialize_database() -> Result<String, String> {
     println!("Starting database initialization...");
-    
+
     let db_path = get_database_path();
-    let conn = Connection::open(&db_path)
-        .map_err(|e| format!("Failed to open the database: {}", e))?;
-    
+    let conn =
+        Connection::open(&db_path).map_err(|e| format!("Failed to open the database: {}", e))?;
+
     println!("Enabling foreign keys...");
     conn.execute("PRAGMA foreign_keys = ON", [])
         .map_err(|e| format!("Failed to enable foreign keys: {}", e))?;
@@ -29,8 +29,14 @@ pub fn initialize_database() -> Result<String, String> {
         ("document", schemas::create_tables::CREATE_DOCUMENT_TABLE),
         ("task", schemas::create_tables::CREATE_TASK_TABLE),
         ("tag", schemas::create_tables::CREATE_TAG_TABLE),
-        ("user_available_days", schemas::create_tables::CREATE_USER_AVAILABLE_DAYS_TABLE),
-        ("user_interesting_fields", schemas::create_tables::CREATE_USER_INTERESTING_FIELDS_TABLE),
+        (
+            "user_available_days",
+            schemas::create_tables::CREATE_USER_AVAILABLE_DAYS_TABLE,
+        ),
+        (
+            "user_interesting_fields",
+            schemas::create_tables::CREATE_USER_INTERESTING_FIELDS_TABLE,
+        ),
     ];
 
     for (table_name, create_table_query) in tables {
@@ -46,7 +52,8 @@ pub fn initialize_database() -> Result<String, String> {
 
 pub fn check_user_and_redirect() -> Result<String, String> {
     let db_path = get_database_path();
-    let conn = Connection::open(db_path).map_err(|e| format!("Failed to open the database: {}", e))?;
+    let conn =
+        Connection::open(db_path).map_err(|e| format!("Failed to open the database: {}", e))?;
 
     let mut stmt = conn
         .prepare("SELECT COUNT(*) FROM user")

@@ -5,5 +5,4 @@ pub fn get_database_path() -> PathBuf {
     println!("Database path: {:?}", db_path);
     db_path.push("database.db");
     db_path
-    
 }

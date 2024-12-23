@@ -26,3 +26,4 @@ tauri-plugin-log = "2.0.0-rc"
 rusqlite = { version = "0.32.0", features = ["bundled"] }
 chrono = "0.4"
 url = "2.2"
+tauri-plugin-sql = { version = "2", features = ["sqlite"] }

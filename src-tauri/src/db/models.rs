@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize)]
 pub enum FieldOfInteresting {
@@ -23,7 +23,17 @@ impl<'de> Deserialize<'de> for FieldOfInteresting {
             "data-science" => Ok(FieldOfInteresting::DataScience),
             "data-engineering" => Ok(FieldOfInteresting::DataEngineering),
             "devops" => Ok(FieldOfInteresting::DevOps),
-            _ => Err(serde::de::Error::unknown_variant(&s, &["frontend", "backend", "mobile", "data-science", "data-engineering", "devops"])),
+            _ => Err(serde::de::Error::unknown_variant(
+                &s,
+                &[
+                    "frontend",
+                    "backend",
+                    "mobile",
+                    "data-science",
+                    "data-engineering",
+                    "devops",
+                ],
+            )),
         }
     }
 }
