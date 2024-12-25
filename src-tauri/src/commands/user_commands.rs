@@ -1,137 +1,157 @@
-use rusqlite::Connection;
-use crate::db::models::{FieldOfInteresting, User, UserAvailableDay, AvailableDay, UserInterestingField};
-use crate::db::repositories::user_repository::UserRepository;
-use chrono::{DateTime, Utc};
+use serde::Serialize;
+use rusqlite::{Connection, Error as RusqliteError};
+use thiserror::Error;
+use log::{error, info};
+use crate::db::repositories::UserRepository;
+use crate::db::models::{
+    user::{UserStatus, User},
+    user_available_day::DayOfWeek,
+};
 use crate::AppState;
+use tauri::ipc::InvokeError;
+
+#[derive(Debug, Error, Serialize)]
+pub enum UserCommandError {
+    #[error("Database error: {0}")]
+    DatabaseError(String),
+    
+    #[error("Invalid input: {0}")]
+    InvalidInput(String),
+    
+    #[error("Unexpected error: {0}")]
+    UnexpectedError(String),
+}
+
+impl From<RusqliteError> for UserCommandError {
+    fn from(err: RusqliteError) -> Self {
+        UserCommandError::DatabaseError(err.to_string())
+    }
+}
 
 pub struct UserCommands<'a> {
     repository: UserRepository<'a>,
 }
 
 impl<'a> UserCommands<'a> {
-    pub fn new(conn: &'a Connection) -> Self {
+    pub fn new(conn: &'a mut Connection) -> Self {
         let repository = UserRepository::new(conn);
         Self { repository }
     }
 
-    pub fn create_user_internal(
-        &self,
-        name: &str,
-        email: &str,
-        status: &str,
-        created_at: DateTime<Utc>,
-        last_login: Option<DateTime<Utc>>,
-        available_days: Vec<AvailableDay>,
-        interesting_fields: Vec<FieldOfInteresting>,
-    ) -> rusqlite::Result<User> {
+    pub fn create_user_method(
+        &mut self,
+        name: String,
+        email: String,
+        status: String,
+        available_days: Vec<String>,
+        interests: Vec<String>,
+    ) -> Result<String, UserCommandError> {
+        info!("Starting the process of creating a new user");
+
+        // Parse user status
+        let status = UserStatus::from_str(&status).ok_or_else(|| {
+            let msg = format!("Invalid status provided: {}", status);
+            error!("{}", msg);
+            UserCommandError::InvalidInput(msg)
+        })?;
+
+        // Parse available days
+        let available_days = available_days
+            .iter()
+            .filter_map(|day| {
+                DayOfWeek::from_str(day).or_else(|| {
+                    error!("Invalid day of week provided: {}", day);
+                    None
+                })
+            })
+            .collect::<Vec<DayOfWeek>>();
+
+        if available_days.is_empty() {
+            let msg = "No valid days of the week provided".to_string();
+            error!("{}", msg);
+            return Err(UserCommandError::InvalidInput(msg));
+        }
+
+        // Create user struct
         let user = User {
-            id: 0,
-            name: name.to_string(),
-            email: email.to_string(),
-            status: status.to_string(),
-            created_at,
-            last_login,
+            id: None,
+            name,
+            email,
+            status,
+            created_at: None,
+            last_login: None,
         };
-        let created_user = self.repository.create(&user)?;
 
-        for day in available_days {
-            let user_available_day = UserAvailableDay {
-                user_id: created_user.id,
-                available_day: day,
-            };
-            self.repository.create_user_available_day(&user_available_day)?;
+        // Call repository to insert user
+        match self.repository.create_user(&user, available_days, interests) {
+            Ok(user_id) => {
+                let success_msg = format!("User created successfully with ID: {}", user_id);
+                info!("{}", success_msg);
+                Ok(success_msg)
+            }
+            Err(err) => {
+                error!("Failed to create user: {}", err);
+                Err(UserCommandError::DatabaseError(err.to_string()))
+            }
         }
+    }
 
-        for field in interesting_fields {
-            let user_interesting_field = UserInterestingField {
-                user_id: created_user.id,
-                field,
-            };
-            self.repository.create_user_interesting_field(&user_interesting_field)?;
+    pub fn check_if_there_is_active_user_status_method(
+        &mut self) -> Result<bool, UserCommandError> {
+            info!("Checking if there is an active user");
+
+            // Call repository to check if there is an active user
+
+            match self.repository.check_if_there_is_active_user_status() {
+                Ok(result) => {
+                    if result {
+                        info!("There is at least one active user.");
+                    } else {
+                        info!("No active users found.");
+                    }
+                    Ok(result)
+                }
+                Err(err) => {
+                    error!("Failed to check active user status {}", err);
+                    Err(UserCommandError::DatabaseError(err.to_string()))
+                }
+            }
         }
-
-        Ok(created_user)
-    }
-
-    pub fn find_user_by_id(&self, user_id: i32) -> rusqlite::Result<User> {
-        self.repository.find_by_id(user_id)
-    }
-
-    pub fn list_all_users(&self) -> rusqlite::Result<Vec<User>> {
-        self.repository.find_all()
-    }
-
-    pub fn list_available_days_for_user(&self, user_id: i32) -> rusqlite::Result<Vec<UserAvailableDay>> {
-        self.repository.find_user_available_days_by_user_id(user_id)
-    }
-
-    pub fn list_interesting_fields_for_user(
-        &self,
-        user_id: i32,
-    ) -> rusqlite::Result<Vec<UserInterestingField>> {
-        self.repository.find_user_interesting_fields_by_user_id(user_id)
-    }
-
-    pub fn check_if_there_is_active_user_status(
-        &self,
-    ) -> rusqlite::Result<bool> {
-        self.repository.check_if_there_is_active_user_status()
-    }
 }
 
-
 #[tauri::command]
-pub fn create_user(
-    app_state: tauri::State<AppState>,
+pub fn create_user_command(
+    app_state: tauri::State<'_, AppState>,
     name: String,
     email: String,
     status: String,
-    available_days: Vec<AvailableDay>,
-    interesting_fields: Vec<FieldOfInteresting>,
-) -> Result<User, String> {
-    let conn = app_state.db_conn.lock().unwrap();
-    let commands = UserCommands::new(&conn);
+    available_days: Vec<String>,
+    interests: Vec<String>,
+) -> Result<String, InvokeError> {
+    // Lock the database connection to ensure thread safety
+    let mut conn = app_state.db_conn.lock().unwrap();
+    
+    let mut user_commands = UserCommands::new(&mut conn);
 
-    let created_at = Utc::now();
-    let last_login = None;
-
-    match commands.create_user_internal(&name, &email, &status, created_at, last_login, available_days, interesting_fields) {
-        Ok(user) => Ok(user),
-        Err(e) => Err(format!("Erro ao criar usuário: {}", e)),
+    match user_commands.create_user_method(name, email, status, available_days, interests) {
+        Ok(result) => Ok(result),
+        Err(err) => Err(InvokeError::from(err)),
     }
 }
 
-
 #[tauri::command]
-pub fn find_user_by_id(app_state: tauri::State<AppState>, user_id: i32) -> Result<User, String> {
-    let conn = app_state.db_conn.lock().unwrap();
-    let commands = UserCommands::new(&conn);
-
-    commands
-        .find_user_by_id(user_id)
-        .map_err(|err| err.to_string())
-}
-
-#[tauri::command]
-pub fn list_all_users(app_state: tauri::State<AppState>) -> Result<Vec<User>, String> {
-    let conn = app_state.db_conn.lock().unwrap();
-    let commands = UserCommands::new(&conn);
-
-    commands
-        .list_all_users()
-        .map_err(|err| err.to_string())
-}
-
-
-#[tauri::command]
-pub fn check_if_there_is_active_user_status(
-    app_state: tauri::State<AppState>,
-) -> Result<bool, String> {
-    let conn = app_state.db_conn.lock().unwrap();
+pub fn check_if_there_is_active_user_status_command(
+    app_state: tauri::State<'_, AppState>,
+) -> Result<bool, InvokeError> {
     
-    let commands = UserCommands::new(&conn);
+    let mut conn = app_state.db_conn.lock().unwrap();
 
-    commands
-        .check_if_there_is_active_user_status()
-        .map_err(|err| err.to_string())
+    let mut user_commands = UserCommands::new(&mut conn);
+
+    // Call the function and convert any errors to InvokeError
+
+    match user_commands.check_if_there_is_active_user_status_method(){
+        Ok(result) =>  Ok(result),
+        Err(err) => Err(InvokeError::from(err)),
+    }
 }
