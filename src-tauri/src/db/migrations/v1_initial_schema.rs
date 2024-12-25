@@ -7,15 +7,15 @@ pub fn run_migrations(conn: &Connection) -> Result<()> {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
+            status TEXT CHECK(status IN ('active', 'inactive')) NOT NULL,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            last_login DATETIME,
-            status TEXT CHECK(status IN ('active', 'inactive')) NOT NULL
+            last_login DATETIME DEFAULT CURRENT_TIMESTAMP
         );
 
         CREATE TABLE IF NOT EXISTS user_available_days (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER NOT NULL,
-            day_of_week INTEGER NOT NULL,
+            day_of_week TEXT NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users(id)
         );
 
