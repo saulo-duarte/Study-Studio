@@ -121,6 +121,7 @@ dependencies = [
  "tauri-build",
  "tauri-plugin-log",
  "tauri-plugin-sql",
+ "thiserror 1.0.69",
  "url",
 ]
 
