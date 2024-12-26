@@ -1,4 +1,4 @@
-import { LayoutDashboard, Earth } from "lucide-react"
+import { Earth } from "lucide-react"
 import { IoPlanetOutline } from "react-icons/io5"
 
 import {

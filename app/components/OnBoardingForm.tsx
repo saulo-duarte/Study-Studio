@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import { invoke } from '@tauri-apps/api/core';
 
 import {
     Form,
@@ -23,7 +24,7 @@ import {
     CardTitle, 
     CardDescription,
     CardContent, 
-    CardFooter } from "./ui/card"
+} from "./ui/card"
 
 import { MultiSelect } from "./MultiSelect"
 
@@ -35,8 +36,7 @@ import {
     Loader2, 
     Calendar, 
     Sun, 
-    Moon, 
-    CloudRain 
+    Moon 
 } from "lucide-react";
 
 const interestingFields = [
@@ -49,13 +49,13 @@ const interestingFields = [
 ];
 
 const availableDays = [
-    { id: "monday", name: "Monday", icon: Calendar },
-    { id: "tuesday", name: "Tuesday", icon: Calendar },
-    { id: "wednesday", name: "Wednesday", icon: Calendar },
-    { id: "thursday", name: "Thursday", icon: Calendar },
-    { id: "friday", name: "Friday", icon: Calendar },
-    { id: "saturday", name: "Saturday", icon: Sun },
-    { id: "sunday", name: "Sunday", icon: Moon },
+    { id: "Monday", name: "Monday", icon: Calendar },
+    { id: "Tuesday", name: "Tuesday", icon: Calendar },
+    { id: "Wednesday", name: "Wednesday", icon: Calendar },
+    { id: "Thursday", name: "Thursday", icon: Calendar },
+    { id: "Friday", name: "Friday", icon: Calendar },
+    { id: "Saturday", name: "Saturday", icon: Sun },
+    { id: "Sunday", name: "Sunday", icon: Moon },
 ];
 
 const formSchema = z.object({
@@ -66,50 +66,70 @@ const formSchema = z.object({
     email: z.string()
         .email("Invalid email address")
         .nonempty("Email is required"),
-    fieldsOfInteresting: z.array(z.string())
+    interestingFields: z.array(z.string())
         .nonempty("Please select at least one field"),
     availableDays: z.array(z.string())
         .nonempty("Please select at least one day"),
 });
 
-type FormValues = z.infer<typeof formSchema>
+type FormValues = z.infer<typeof formSchema>;
 
 export function OnboardingForm() {
-    const router = useRouter()
-    const { toast } = useToast()
-    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter();
+    const { toast } = useToast();
+    const [isLoading, setIsLoading] = useState(false);
 
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
             email: "",
-            fieldsOfInteresting: [],
+            interestingFields: [],
+            availableDays: [],
         }
-    })
+    });
 
     async function onSubmit(data: FormValues) {
         try {
-            setIsLoading(true)
-
-            await new Promise((resolve) => setTimeout(resolve, 1000))
-
+            setIsLoading(true);
+    
+            if (!data.name?.trim()) {
+                throw new Error("Name is required");
+            }
+    
+            await invoke("create_user_command", {
+                name: data.name.trim(),
+                email: data.email?.trim() || null,
+                status: "active",
+                availableDays: data.availableDays,
+                interests: data.interestingFields,
+              });
+    
             toast({
-                title: "Account created",
+                title: "Success!",
                 description: "Your account has been created successfully",
-            })
-
-            router.push("/")
+                duration: 5000,
+            });
+            router.push("/");
+    
         } catch (error) {
+            const backendMessage = error instanceof Error 
+                ? error.message 
+                : "An error occurred while creating your account. Please try again.";
+    
+            console.error("Error creating user:", error);
+    
             toast({
                 variant: "destructive",
-                title: "An error occurred",
-                description: "An error occurred while creating your account. Please try again",
-            })
+                title: "Error",
+                description: backendMessage,
+                duration: 7000,
+            });
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
         }
     }
+    
 
     return (
         <Card className="w-full max-w-md mx-auto">
@@ -158,7 +178,7 @@ export function OnboardingForm() {
                         />
                         <FormField
                             control={form.control}
-                            name="fieldsOfInteresting"
+                            name="interestingFields"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Interesting Fields</FormLabel>
@@ -170,7 +190,7 @@ export function OnboardingForm() {
                                                 icon: field.icon,
                                             }))}
                                             onValueChange={(values) => field.onChange(values)}
-                                            defaultValue={field.value || []}
+                                            value={field.value || []}
                                             placeholder="Select your interesting fields"
                                             variant="inverted"
                                             animation={2}
@@ -185,18 +205,18 @@ export function OnboardingForm() {
                         <FormField
                             control={form.control}
                             name="availableDays"
-                            render={( { field }) => (
+                            render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel> Available Days </FormLabel>
+                                    <FormLabel>Available Days</FormLabel>
                                     <FormControl>
-                                        <MultiSelect 
+                                        <MultiSelect
                                             options={availableDays.map((field) => ({
                                                 value: field.id,
                                                 label: field.name,
                                                 icon: field.icon,
                                             }))}
                                             onValueChange={(values) => field.onChange(values)}
-                                            defaultValue={field.value || []}
+                                            value={field.value || []}
                                             placeholder="Your available days"
                                             variant="inverted"
                                             animation={2}
@@ -204,30 +224,29 @@ export function OnboardingForm() {
                                         />
                                     </FormControl>
                                     <FormDescription>Select at least 1 field</FormDescription>
+                                    <FormMessage />
                                 </FormItem>
-                            )} 
-                        
+                            )}
                         />
+                        <Button
+                            type="submit"
+                            disabled={isLoading}
+                            variant={"default"}
+                            className="w-full"
+                        >
+                            {isLoading ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Creating account...
+                                </>
+                            ) : (
+                                "Create account"
+                            )}
+                        </Button>
                     </form>
                 </Form>
             </CardContent>
-            <CardFooter className="flex justify-end gap-4">
-                <Button
-                    type="submit"
-                    onClick={form.handleSubmit(onSubmit)}
-                    disabled={isLoading}
-                    variant={"default"}
-                >
-                    {isLoading ? (
-                        <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Creating account...
-                        </>
-                    ) : (
-                        "Create account"
-                    )}
-                </Button>
-            </CardFooter>
         </Card>
-    )
+    );
+    
 }
