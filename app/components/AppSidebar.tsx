@@ -1,5 +1,6 @@
 import { Earth } from "lucide-react"
 import { IoPlanetOutline } from "react-icons/io5"
+import { BookOpenIcon } from "lucide-react"
 
 import {
   Sidebar,
@@ -23,6 +24,11 @@ import {
       title: "Workstation",
       url: "/",
       icon: IoPlanetOutline
+    },
+    {
+      title: "Library",
+      url: "/library",
+      icon: BookOpenIcon
     }
   ]
   

@@ -7,6 +7,7 @@ import { AppSidebar } from "./components/AppSidebar";
 import { invoke } from '@tauri-apps/api/core';
 import { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
+import { NextUIProvider } from '@nextui-org/system';
 
 export default function RootLayout({
   children
@@ -42,16 +43,19 @@ export default function RootLayout({
   console.log("Current state - isChecked:", isChecked, "pathname:", pathname);
 
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body>
         {isChecked && (
           <main>
             {!pathname?.includes('/onboarding') ? (
+                  <NextUIProvider>
+
               <SidebarProvider>
                 <AppSidebar />
                 <SidebarTrigger />
                 {children}
               </SidebarProvider>
+                  </NextUIProvider>
             ) : (
               children
             )}

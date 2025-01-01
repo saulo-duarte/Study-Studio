@@ -17,7 +17,7 @@
     --gray-shade9: hsl(0 0% 10%);
     --gray-shade10: hsl(0 0% 0%);
     --card: hsl(0 0% 100%);
-    --card-foreground: hsl(240 10% 3.9%);
+    --card-foreground: hsl(0, 0%, 16%);
     --popover: hsl(0 0% 100%);
     --popover-foreground: hsl(240 10% 3.9%);
     --primary: hsl(240 5.9% 10%);
@@ -54,7 +54,7 @@
   :root {
     --background: hsl(240 2 10);
     --foreground: hsl(0 0% 98%);
-    --card: hsl(240 10% 3.9%);
+    --card: hsl(0, 0%, 10%);
     --gray-shade0: hsl(0, 0%, 100%);
     --gray-shade1: hsl(0, 0%, 90%);
     --gray-shade2: hsl(0, 0%, 80%);
