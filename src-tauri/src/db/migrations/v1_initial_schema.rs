@@ -26,26 +26,26 @@ pub fn run_migrations(conn: &Connection) -> Result<()> {
             FOREIGN KEY (user_id) REFERENCES users(id)
         );
 
-        CREATE TABLE IF NOT EXISTS documents (
+        CREATE TABLE IF NOT EXISTS books (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL,
-            content TEXT,
-            user_id INTEGER NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id)
+            author TEXT,
+            file_path TEXT NOT NULL
         );
 
-        -- Tabela de tags
         CREATE TABLE IF NOT EXISTS tags (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL
+            title TEXT,
+            color TEXT,
+            icon TEXT
         );
 
-        CREATE TABLE IF NOT EXISTS document_tags (
-            document_id INTEGER NOT NULL,
+        CREATE TABLE IF NOT EXISTS book_tags (
+            book_id INTEGER NOT NULL,
             tag_id INTEGER NOT NULL,
-            PRIMARY KEY (document_id, tag_id),
-            FOREIGN KEY (document_id) REFERENCES documents(id),
-            FOREIGN KEY (tag_id) REFERENCES tags(id)
+            PRIMARY KEY (book_id, tag_id),
+            FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
+            FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
         );
         "#
     )?;
