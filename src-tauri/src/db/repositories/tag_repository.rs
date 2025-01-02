@@ -1,110 +1,63 @@
-use rusqlite::{Connection, Result, params, OptionalExtension};
-use crate::db::models::tag::Tag;
+use rusqlite::{params, Connection, Result};
+use crate::db::book::Book;
+use crate::db::tag::Tag;
 
 pub struct TagRepository<'a> {
-    conn: &'a Connection,
+    conn: &'a mut Connection,
 }
 
 impl<'a> TagRepository<'a> {
-    pub fn new(conn: &'a Connection) -> Self {
+    pub fn new(conn: &'a mut Connection) -> Self {
         Self { conn }
     }
 
-    pub fn create(&self, tag: &Tag) -> Result<(), String> {
-        let sql = "
-            INSERT INTO tags (
-                title, 
-                color, 
-                description, 
-                created_at, 
-                icon
-            ) 
-            VALUES (?, ?, ?, ?, ?)
-            RETURNING *";
-
-        self.conn
-            .execute(sql, params![
-                &tag.title,
-                &tag.color,
-                &tag.description,
-                &tag.created_at,
-                &tag.icon,
-            ])
-            .map_err(|e| e.to_string())?;
-
-        Ok(())
+    pub fn create_tag(&mut self, tag: &Tag) -> Result<i64> {
+        let mut stmt = self.conn.prepare(
+            "INSERT INTO tags (title, color, icon) VALUES (?, ?, ?)"
+        )?;
+        
+        stmt.execute(params![tag.title, tag.color, tag.icon])?;
+        
+        Ok(self.conn.last_insert_rowid())
     }
 
-    pub fn get_by_id(&self, id: i64) -> Result<Option<Tag>, String> {
-        let sql = "
-            SELECT id, title, color, description, created_at, icon 
-            FROM tags 
-            WHERE id = ?";
-
-        self.conn.query_row(sql, params![id], |row| {
-            Ok(Tag {
-                id: row.get(0)?,
-                title: row.get(1)?,
-                color: row.get(2)?,
-                description: row.get(3).ok(),
-                created_at: row.get(4)?,
-                icon: row.get(5).ok(),
-            })
-        }).optional()
-        .map_err(|e| e.to_string())
+    pub fn update_title(&mut self, id: i32, new_title: &str) -> Result<usize> {
+        self.conn.execute(
+            "UPDATE tags SET title = ? WHERE id = ?",
+            params![new_title, id],
+        )
     }
 
-    pub fn update(&self, tag: &Tag) -> Result<(), String> {
-        let sql = "
-            UPDATE tags 
-            SET title = ?, color = ?, description = ?, created_at = ?, icon = ? 
-            WHERE id = ?";
-
-        self.conn
-            .execute(sql, params![
-                &tag.title,
-                &tag.color,
-                &tag.description,
-                &tag.created_at,
-                &tag.icon,
-                &tag.id
-            ])
-            .map_err(|e| e.to_string())?;
-
-        Ok(())
+    pub fn update_color(&mut self, id: i32, new_color: &str) -> Result<usize> {
+        self.conn.execute(
+            "UPDATE tags SET color = ? WHERE id = ?",
+            params![new_color, id],
+        )
     }
 
-    pub fn delete(&self, id: i64) -> Result<(), String> {
-        let sql = "DELETE FROM tags WHERE id = ?";
-
-        self.conn
-            .execute(sql, params![id])
-            .map_err(|e| e.to_string())?;
-
-        Ok(())
+    pub fn update_icon(&mut self, id: i32, new_icon: Option<&str>) -> Result<usize> {
+        self.conn.execute(
+            "UPDATE tags SET icon = ? WHERE id = ?",
+            params![new_icon, id],
+        )
     }
 
-    pub fn get_all(&self) -> Result<Vec<Tag>, String> {
-        let sql = "
-            SELECT id, title, color, description, created_at, icon 
-            FROM tags";
+    pub fn delete_tag(&mut self, id: i32) -> Result<usize> {
+        self.conn.execute("DELETE FROM tags WHERE id = ?", params![id])
+    }
 
-        let mut stmt = self.conn.prepare(sql).map_err(|e| e.to_string())?;
-
+    pub fn get_all_tags(&self) -> Result<Vec<Tag>> {
+        let mut stmt = self.conn.prepare("SELECT id, title, color, icon FROM tags")?;
         let tag_iter = stmt.query_map([], |row| {
             Ok(Tag {
                 id: row.get(0)?,
                 title: row.get(1)?,
                 color: row.get(2)?,
-                description: row.get(3).ok(),
-                created_at: row.get(4)?,
-                icon: row.get(5).ok(),
+                icon: row.get(3)?,
             })
-        }).map_err(|e| e.to_string())?;
+        })?;
 
-        let tags: Vec<Tag> = tag_iter.collect::<Result<_, _>>()
-            .map_err(|e| e.to_string())?;
-
-        Ok(tags)
+        let tags: Result<Vec<Tag>> = tag_iter.collect();
+        tags
     }
 }
