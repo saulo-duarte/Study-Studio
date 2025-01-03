@@ -1,3 +1,4 @@
+import { nextui } from "@nextui-org/theme";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -5,6 +6,7 @@ export default {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@nextui-org/theme/dist/components/(input|form).js",
   ],
   theme: {
     extend: {
@@ -34,7 +36,7 @@ export default {
         accent: {
           DEFAULT: "var(--accent)",
           foreground: "var(--accent-foreground)",
-		  ssYellow: "var(--accent-yellow)",
+          ssYellow: "var(--accent-yellow)",
         },
         destructive: {
           DEFAULT: "var(--destructive)",
@@ -62,5 +64,34 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    nextui({
+      themes: {
+        "custom-dark": {
+          extend: "dark",
+          colors: {
+            background: "#121212",
+            foreground: "#FFF155",
+            primary: {
+              DEFAULT: "#FFF155",
+              foreground: "#000000",
+            },
+            secondary: {
+              DEFAULT: "#1E293B",
+              foreground: "#ffffff",
+            },
+          },
+          layout: {
+            disabledOpacity: "0.4",
+            radius: {
+              small: "4px",
+              medium: "6px",
+              large: "8px",
+            },
+          },
+        },
+      },
+    }),
+  ],
 } satisfies Config;
