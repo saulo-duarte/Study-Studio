@@ -5,6 +5,7 @@
 :root {
     --background: hsl(0 0% 100%);
     --foreground: hsl(240 10% 3.9%);
+    modal-background: hsl(0, 0% 10%);
     --gray-shade0: hsl(0 0% 100%);
     --gray-shade1: hsl(0 0% 90%);
     --gray-shade2: hsl(0 0% 80%);
@@ -54,6 +55,7 @@
   :root {
     --background: hsl(240 2 10);
     --foreground: hsl(0 0% 98%);
+    --modal-background: hsl(0, 0%, 15%);
     --card: hsl(0, 0%, 10%);
     --gray-shade0: hsl(0, 0%, 100%);
     --gray-shade1: hsl(0, 0%, 90%);

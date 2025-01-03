@@ -28,7 +28,7 @@ import {
 
 import { MultiSelect } from "./MultiSelect"
 
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/app/hooks/use-toast"
 import { FaReact, FaMobileAlt, FaServer, FaTools } from "react-icons/fa";
 import { 
     BarChart, 
