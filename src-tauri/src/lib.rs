@@ -10,7 +10,9 @@ pub mod commands;
 use db::run_migrations;
 use commands::{
     create_user_command, check_if_there_is_active_user_status_command,
-    insert_new_book_command};
+    insert_new_book_command, add_tags_to_book_command, 
+    remove_tags_from_book_command, create_tag_command,
+    get_all_tags_command};
 
 pub struct AppState {
     pub db_conn: Arc<Mutex<Connection>>,
@@ -57,7 +59,11 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             create_user_command,
             check_if_there_is_active_user_status_command,
-            insert_new_book_command
+            insert_new_book_command,
+            add_tags_to_book_command,
+            remove_tags_from_book_command,
+            get_all_tags_command,
+            create_tag_command
         ])
         .run(tauri::generate_context!())
         .expect("Erro ao rodar a aplicação Tauri");

@@ -157,21 +157,21 @@ impl<'a> TagCommands<'a> {
     }
 }
 
-#[tauri::command]
-pub fn create_tag_command(
-    app_state: tauri::State<'_, AppState>,
-    title: String,
-    color: String,
-    icon: Option<String>,
-) -> Result<String, InvokeError> {
-    let mut conn = app_state.db_conn.lock().unwrap();
-    let mut tag_commands = TagCommands::new(&mut conn);
+    #[tauri::command]
+    pub fn create_tag_command(
+        app_state: tauri::State<'_, AppState>,
+        title: String,
+        color: String,
+        icon: Option<String>,
+    ) -> Result<String, InvokeError> {
+        let mut conn = app_state.db_conn.lock().unwrap();
+        let mut tag_commands = TagCommands::new(&mut conn);
 
-    match tag_commands.create_tag_method(title, color, icon) {
-        Ok(result) => Ok(result),
-        Err(err) => Err(InvokeError::from(err)),
+        match tag_commands.create_tag_method(title, color, icon) {
+            Ok(result) => Ok(result),
+            Err(err) => Err(InvokeError::from(err)),
+        }
     }
-}
 
 #[tauri::command]
 pub fn update_tag_command(
